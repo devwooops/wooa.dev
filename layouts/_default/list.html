@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div class="list-page">
+    <header class="list-header">
+        <h1 class="list-title">{{ .Title }}</h1>
+        {{- if .Description }}
+        <p class="list-description">{{ .Description }}</p>
+        {{- end }}
+    </header>
+
+    <div class="post-list">
+        {{- $pages := .Pages }}
+        {{- if eq .Kind "home" }}
+            {{- $pages = where .Site.RegularPages "Type" "posts" }}
+        {{- end }}
+
+        {{- if gt (len $pages) 0 }}
+            {{- range $pages }}
+            <article class="post-item">
+                <div class="post-item-content">
+                    <h2 class="post-item-title">
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                    </h2>
+
+                    <div class="post-item-meta">
+                        <time datetime="{{ .Date.Format "2006-01-02" }}">
+                            {{ .Date.Format "2006.01.02" }}
+                        </time>
+
+                        {{- if .Params.categories }}
+                        <span class="post-item-separator">·</span>
+                        <div class="post-item-categories">
+                            {{- range .Params.categories }}
+                            <a href="{{ "/categories/" | relURL }}{{ . | urlize }}" class="post-item-category">{{ . }}</a>
+                            {{- end }}
+                        </div>
+                        {{- end }}
+                    </div>
+
+                    {{- if .Summary }}
+                    <div class="post-item-summary">
+                        {{ .Summary }}
+                    </div>
+                    {{- end }}
+
+                    {{- if .Params.tags }}
+                    <div class="post-item-tags">
+                        {{- range first 5 .Params.tags }}
+                        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="post-item-tag">{{ . }}</a>
+                        {{- end }}
+                    </div>
+                    {{- end }}
+                </div>
+            </article>
+            {{- end }}
+        {{- else }}
+        <p class="no-posts">게시글이 없습니다.</p>
+        {{- end }}
+    </div>
+</div>
+{{ end }}

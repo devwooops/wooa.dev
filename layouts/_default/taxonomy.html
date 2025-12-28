@@ -1,0 +1,48 @@
+{{ define "main" }}
+<div class="taxonomy-single">
+    <header class="taxonomy-header">
+        <div class="taxonomy-meta">
+            {{- if eq .Type "tags" }}
+            <span class="taxonomy-type">태그</span>
+            {{- else if eq .Type "categories" }}
+            <span class="taxonomy-type">카테고리</span>
+            {{- end }}
+        </div>
+        <h1 class="taxonomy-title">{{ .Title }}</h1>
+        <p class="taxonomy-count">{{ len .Pages }}개의 게시글</p>
+    </header>
+
+    <div class="post-list">
+        {{- range .Pages }}
+        <article class="post-item">
+            <div class="post-item-content">
+                <h2 class="post-item-title">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </h2>
+
+                <div class="post-item-meta">
+                    <time datetime="{{ .Date.Format "2006-01-02" }}">
+                        {{ .Date.Format "2006.01.02" }}
+                    </time>
+
+                    {{- if .Params.categories }}
+                    <span class="post-item-separator">·</span>
+                    <div class="post-item-categories">
+                        {{- range .Params.categories }}
+                        <a href="{{ "/categories/" | relURL }}{{ . | urlize }}" class="post-item-category">{{ . }}</a>
+                        {{- end }}
+                    </div>
+                    {{- end }}
+                </div>
+
+                {{- if .Summary }}
+                <div class="post-item-summary">
+                    {{ .Summary }}
+                </div>
+                {{- end }}
+            </div>
+        </article>
+        {{- end }}
+    </div>
+</div>
+{{ end }}

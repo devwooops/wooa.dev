@@ -1,0 +1,196 @@
+<script>
+// Theme Toggle
+(function() {
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            const currentTheme = html.dataset.theme;
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.dataset.theme = newTheme;
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+
+    // Set initial theme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme) {
+        html.dataset.theme = savedTheme;
+    } else if (prefersDark) {
+        html.dataset.theme = 'dark';
+    } else {
+        html.dataset.theme = 'light';
+    }
+})();
+
+// Progress Bar
+(function() {
+    const progressBar = document.getElementById('progress-bar');
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+        if (progressBar) {
+            progressBar.style.width = scrollPercent + '%';
+        }
+    });
+})();
+
+// Mobile Menu Toggle
+(function() {
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const tocToggle = document.getElementById('toc-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const tocSidebar = document.getElementById('toc-sidebar');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            if (tocSidebar) {
+                tocSidebar.classList.remove('active');
+            }
+        });
+    }
+
+    if (tocToggle && tocSidebar) {
+        tocToggle.addEventListener('click', function() {
+            tocSidebar.classList.toggle('active');
+            if (sidebar) {
+                sidebar.classList.remove('active');
+            }
+        });
+    }
+
+    // Close menus when clicking outside
+    document.addEventListener('click', function(event) {
+        if (sidebar && !sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+        if (tocSidebar && !tocSidebar.contains(event.target) && tocToggle && !tocToggle.contains(event.target)) {
+            tocSidebar.classList.remove('active');
+        }
+    });
+})();
+
+// TOC Active Link
+(function() {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            const tocLink = document.querySelector(`.toc a[href="#${id}"]`);
+
+            if (tocLink) {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.toc a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    tocLink.classList.add('active');
+                }
+            }
+        });
+    }, { rootMargin: '-20% 0px -80% 0px' });
+
+    document.querySelectorAll('h1[id], h2[id], h3[id]').forEach(heading => {
+        observer.observe(heading);
+    });
+})();
+
+// Navigation Buttons
+(function() {
+    const scrollTop = document.getElementById('scroll-top');
+    const scrollBottom = document.getElementById('scroll-bottom');
+    const goBack = document.getElementById('go-back');
+
+    if (scrollTop) {
+        scrollTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    if (scrollBottom) {
+        scrollBottom.addEventListener('click', function() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    }
+
+    if (goBack) {
+        goBack.addEventListener('click', function() {
+            window.history.back();
+        });
+    }
+})();
+
+// Code Copy Button
+(function() {
+    document.querySelectorAll('pre > code').forEach(function(codeBlock) {
+        const pre = codeBlock.parentNode;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
+
+        // Add language label
+        const language = codeBlock.className.replace('language-', '');
+        if (language && language !== 'code') {
+            const langLabel = document.createElement('div');
+            langLabel.className = 'code-language';
+            langLabel.textContent = language;
+            wrapper.appendChild(langLabel);
+        }
+
+        // Add copy button
+        const copyButton = document.createElement('button');
+        copyButton.className = 'code-copy-btn';
+        copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+        copyButton.setAttribute('aria-label', 'Copy code');
+
+        copyButton.addEventListener('click', function() {
+            navigator.clipboard.writeText(codeBlock.textContent).then(function() {
+                copyButton.classList.add('copied');
+                copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+                setTimeout(function() {
+                    copyButton.classList.remove('copied');
+                    copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                }, 2000);
+            });
+        });
+
+        wrapper.appendChild(copyButton);
+    });
+})();
+
+// Smooth Scroll for Anchor Links
+(function() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#') {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    history.pushState(null, null, href);
+                }
+            }
+        });
+    });
+})();
+</script>
+
+{{- if .Site.Params.googleAnalytics }}
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ .Site.Params.googleAnalytics }}');
+</script>
+{{- end }}
