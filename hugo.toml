@@ -52,6 +52,9 @@ pygmentsCodeFences = true
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = "github"
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
@@ -63,6 +66,6 @@ pygmentsCodeFences = true
     noClasses = true
     style = "monokai"
   [markup.tableOfContents]
-    endLevel = 3
+    endLevel = 6
     ordered = false
     startLevel = 2
