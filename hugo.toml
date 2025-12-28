@@ -4,13 +4,68 @@ title = "WOOA.DEV"
 theme = "hugo-book"
 
 enableRobotsTXT = true
+enableEmoji = true
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
 
 [params]
+  author = "Han Sangwoo"
+  description = "인프라 · 리눅스 · 보안 실무 기록"
+  profileImage = "/images/profile.png"
+
+  # Book theme settings
   BookTheme = "auto"
   BookToC = true
   BookSection = "docs"
   BookRepo = "https://github.com/devwooops/wooa.dev"
   BookEditPath = "edit/main"
 
+  # Custom settings
+  recentPostsCount = 5
+
+  # Comments (Utterances)
+  [params.comments]
+    enabled = true
+    repo = "devwooops/wooa.dev"
+    issueTerm = "pathname"
+    theme = "github-light"
+    darkTheme = "github-dark"
+
 [params.BookSearch]
   enabled = true
+
+# Social links
+[[params.social]]
+  name = "GitHub"
+  icon = "github"
+  url = "https://github.com/devwooops"
+
+[[params.social]]
+  name = "RSS"
+  icon = "rss"
+  url = "/index.xml"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    style = "monokai"
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2

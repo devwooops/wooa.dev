@@ -1,0 +1,31 @@
+/* Auto theme detection based on system preference */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+        --bg-primary: #1a1a1a;
+        --bg-secondary: #2d2d2d;
+        --bg-tertiary: #3d3d3d;
+        --text-primary: #e0e0e0;
+        --text-secondary: #a0a0a0;
+        --text-tertiary: #707070;
+        --border-color: #404040;
+        --link-color: #66b3ff;
+        --link-hover: #99ccff;
+        --code-bg: #2d2d2d;
+        --code-border: #404040;
+        --accent-color: #66b3ff;
+        --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+}
+
+/* Smooth transitions for theme changes */
+html,
+body,
+.sidebar,
+.toc-sidebar,
+.mobile-header,
+.post-item,
+.taxonomy-item,
+a,
+button {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

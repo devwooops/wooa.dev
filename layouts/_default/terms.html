@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+    <header class="taxonomy-header">
+        <h1 class="taxonomy-title">
+            {{- if eq .Type "tags" }}태그{{- else if eq .Type "categories" }}카테고리{{- else }}{{ .Title }}{{- end }}
+        </h1>
+    </header>
+
+    <div class="taxonomy-list">
+        {{- range .Data.Terms.Alphabetical }}
+        <div class="taxonomy-item">
+            <a href="{{ .Page.Permalink }}" class="taxonomy-link">
+                <span class="taxonomy-name">{{ .Page.Title }}</span>
+                <span class="taxonomy-count">{{ .Count }}</span>
+            </a>
+        </div>
+        {{- end }}
+    </div>
+</div>
+{{ end }}

@@ -1,0 +1,49 @@
+{{ define "main" }}
+<article class="post">
+    <header class="post-header">
+        {{- if .Params.categories }}
+        <div class="post-categories">
+            {{- range .Params.categories }}
+            <a href="{{ "/categories/" | relURL }}{{ . | urlize }}" class="post-category">{{ . }}</a>
+            {{- end }}
+        </div>
+        {{- end }}
+
+        <h1 class="post-title">{{ .Title }}</h1>
+
+        <div class="post-meta">
+            <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}" class="post-date">
+                {{ .Date.Format "2006년 01월 02일" }}
+            </time>
+            {{- if .Params.author }}
+            <span class="post-author">{{ .Params.author }}</span>
+            {{- else if .Site.Params.author }}
+            <span class="post-author">{{ .Site.Params.author }}</span>
+            {{- end }}
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ .Content }}
+    </div>
+
+    {{- if .Params.tags }}
+    <footer class="post-footer">
+        <div class="post-tags">
+            <span class="tags-label">태그:</span>
+            {{- range .Params.tags }}
+            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="post-tag">{{ . }}</a>
+            {{- end }}
+        </div>
+    </footer>
+    {{- end }}
+
+    <!-- Post Navigation -->
+    {{- partial "post-nav.html" . -}}
+
+    <!-- Comments -->
+    {{- if and .Site.Params.comments.enabled (ne .Params.comments false) }}
+    {{- partial "comments.html" . -}}
+    {{- end }}
+</article>
+{{ end }}

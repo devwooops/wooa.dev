@@ -1,0 +1,28 @@
+{{- $pages := where .Site.RegularPages "Type" "posts" }}
+{{- $currentIndex := 0 }}
+{{- range $index, $page := $pages }}
+    {{- if eq $page.Permalink $.Permalink }}
+        {{- $currentIndex = $index }}
+    {{- end }}
+{{- end }}
+
+{{- $prev := index $pages (add $currentIndex 1) }}
+{{- $next := index $pages (sub $currentIndex 1) }}
+
+{{- if or $prev $next }}
+<nav class="post-nav">
+    {{- if $prev }}
+    <a href="{{ $prev.Permalink }}" class="post-nav-item post-nav-prev">
+        <span class="post-nav-label">이전 글</span>
+        <span class="post-nav-title">{{ $prev.Title }}</span>
+    </a>
+    {{- end }}
+
+    {{- if $next }}
+    <a href="{{ $next.Permalink }}" class="post-nav-item post-nav-next">
+        <span class="post-nav-label">다음 글</span>
+        <span class="post-nav-title">{{ $next.Title }}</span>
+    </a>
+    {{- end }}
+</nav>
+{{- end }}

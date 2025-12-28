@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" data-theme="{{ .Site.Params.BookTheme }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {{- partial "seo.html" . -}}
+
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+    {{- if .Site.Params.BookTheme }}
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || '{{ .Site.Params.BookTheme }}';
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    {{- end }}
+
+    {{- partial "head.html" . -}}
+</head>
+<body>
+    <!-- Progress bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Mobile header -->
+    {{- partial "header.html" . -}}
+
+    <div class="container">
+        <!-- Left sidebar -->
+        {{- partial "sidebar.html" . -}}
+
+        <!-- Main content -->
+        <main class="main-content">
+            {{- block "main" . }}{{- end }}
+        </main>
+
+        <!-- Right TOC -->
+        {{- if and (eq .Kind "page") (ne .Type "search") }}
+            {{- partial "toc.html" . -}}
+        {{- end }}
+    </div>
+
+    {{- partial "scripts.html" . -}}
+</body>
+</html>

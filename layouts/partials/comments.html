@@ -1,0 +1,43 @@
+{{- if .Site.Params.comments.enabled }}
+<div class="comments-section" id="comments">
+    <h3 class="comments-title">댓글</h3>
+    <script src="https://utteranc.es/client.js"
+            repo="{{ .Site.Params.comments.repo }}"
+            issue-term="{{ .Site.Params.comments.issueTerm }}"
+            theme="{{ .Site.Params.comments.theme }}"
+            crossorigin="anonymous"
+            async>
+    </script>
+</div>
+
+<script>
+// Update utterances theme when user toggles dark mode
+(function() {
+    const utterancesTheme = {
+        light: '{{ .Site.Params.comments.theme }}',
+        dark: '{{ .Site.Params.comments.darkTheme }}'
+    };
+
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'data-theme') {
+                const theme = document.documentElement.dataset.theme;
+                const iframe = document.querySelector('.utterances-frame');
+                if (iframe) {
+                    const message = {
+                        type: 'set-theme',
+                        theme: utterancesTheme[theme] || utterancesTheme.light
+                    };
+                    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+                }
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+})();
+</script>
+{{- end }}
