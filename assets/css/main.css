@@ -1,15 +1,19 @@
 /* ===== CSS Variables ===== */
 :root {
-    --max-width: 80rem;
-    --sidebar-width: 16rem;
-    --toc-width: 16rem;
+    --max-width: 1400px;        /* 포스트 컨텐츠 최대 너비 */
+    --sidebar-width: 280px;     /* 왼쪽 사이드바 너비 */
+    --toc-width: 250px;         /* 오른쪽 목차바 너비 */
     --header-height: 60px;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
     --spacing-1: 1px;
     --spacing-4: 0.25rem;
     --spacing-8: 0.5rem;
     --spacing-16: 1rem;
-    --border-radius: 4px;
-    --transition: all 0.2s ease;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
 }
 
 /* Light Theme */
@@ -315,7 +319,9 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 .main-content {
     flex: 1;
     min-width: 0;
-    max-width: 100%;
+    max-width: var(--max-width);  /* 포스트는 고정 최대 너비 */
+    width: 100%;
+    margin: 0 auto;               /* 중앙 정렬 */
     padding: calc(var(--spacing-16) * 2);
     min-height: 100vh;
 }
