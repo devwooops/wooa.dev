@@ -1,7 +1,7 @@
 baseURL = "https://wooa.dev/"
 languageCode = "ko-kr"
 title = "WOOA.DEV"
-theme = "hugo-book"
+# theme = "hugo-book"  # Using custom layout instead
 
 enableRobotsTXT = true
 enableEmoji = true
@@ -17,12 +17,8 @@ pygmentsCodeFences = true
   description = "인프라 · 리눅스 · 보안 실무 기록"
   # profileImage = "/images/profile.png"  # 프로필 이미지 경로 (선택사항)
 
-  # Book theme settings
-  BookTheme = "auto"
-  BookToC = true
-  BookSection = "docs"
-  BookRepo = "https://github.com/devwooops/wooa.dev"
-  BookEditPath = "edit/main"
+  # Theme settings
+  defaultTheme = "auto"  # auto, light, dark
 
   # Custom settings
   recentPostsCount = 5
@@ -35,8 +31,9 @@ pygmentsCodeFences = true
     theme = "github-light"
     darkTheme = "github-dark"
 
-[params.BookSearch]
-  enabled = true
+  # Search
+  [params.search]
+    enabled = true
 
 # Social links
 [[params.social]]

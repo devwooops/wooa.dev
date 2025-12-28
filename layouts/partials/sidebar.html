@@ -48,7 +48,7 @@
     <!-- Search -->
     <div class="sidebar-search">
         <h3 class="sidebar-title">{{ .Site.Title }}</h3>
-        {{- if .Site.Params.BookSearch.enabled }}
+        {{- if .Site.Params.search.enabled }}
         <form action="/search" method="get" class="search-form">
             <input type="search" name="q" placeholder="검색..." class="search-input" aria-label="Search">
             <button type="submit" class="search-button" aria-label="Submit Search">
