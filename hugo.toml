@@ -63,6 +63,6 @@ pygmentsCodeFences = true
     noClasses = true
     style = "monokai"
   [markup.tableOfContents]
-    endLevel = 3
+    endLevel = 6
     ordered = false
     startLevel = 2
