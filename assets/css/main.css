@@ -1,8 +1,7 @@
 /* ===== CSS Variables ===== */
 :root {
-    --max-width: 1400px;        /* 포스트 컨텐츠 최대 너비 */
-    --sidebar-width: 280px;     /* 왼쪽 사이드바 너비 */
-    --toc-width: 250px;         /* 오른쪽 목차바 너비 */
+    --sidebar-width: 280px;
+    --toc-width: 250px;
     --header-height: 60px;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
@@ -140,9 +139,8 @@ html[data-theme="dark"] .mobile-header {
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    max-width: var(--max-width);  /* 전체 레이아웃 최대 너비 1400px */
     min-height: 100vh;
-    margin: 0 auto;               /* 중앙 정렬 */
+    margin: 0;
     padding: 0;
     gap: 0;
     box-sizing: border-box;
