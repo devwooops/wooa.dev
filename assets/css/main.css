@@ -139,10 +139,10 @@ html[data-theme="dark"] .mobile-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 100vw;
-    max-width: 100vw;
+    width: 100%;
+    max-width: var(--max-width);  /* 전체 레이아웃 최대 너비 1400px */
     min-height: 100vh;
-    margin: 0;
+    margin: 0 auto;               /* 중앙 정렬 */
     padding: 0;
     gap: 0;
     box-sizing: border-box;
@@ -317,11 +317,8 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Main Content ===== */
 .main-content {
-    flex: 1;
+    flex: 1;                      /* 사이드바 제외한 나머지 공간 차지 */
     min-width: 0;
-    max-width: var(--max-width);  /* 포스트는 고정 최대 너비 */
-    width: 100%;
-    margin: 0 auto;               /* 중앙 정렬 */
     padding: calc(var(--spacing-16) * 2);
     min-height: 100vh;
 }
