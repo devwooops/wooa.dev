@@ -1,6 +1,5 @@
 /* ===== CSS Variables ===== */
 :root {
-    --max-width: 1400px;
     --sidebar-width: 280px;
     --toc-width: 250px;
     --header-height: 60px;
@@ -123,24 +122,29 @@ html[data-theme="dark"] .mobile-header {
 
 /* ===== Layout Container ===== */
 .container {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr var(--toc-width);
-    max-width: var(--max-width);
-    margin: 0 auto;
-    gap: var(--spacing-xl);
-    padding: var(--spacing-xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    gap: 0;
 }
 
 /* ===== Sidebar (Left Menu) ===== */
 .sidebar {
     position: sticky;
-    top: var(--spacing-xl);
-    height: fit-content;
-    max-height: calc(100vh - var(--spacing-xl) * 2);
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: var(--spacing-lg);
     background: var(--bg-secondary);
-    border-radius: var(--border-radius);
+    border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .sidebar-profile {
@@ -295,18 +299,27 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Main Content ===== */
 .main-content {
+    flex: 1;
     min-width: 0;
+    padding: var(--spacing-xl);
+    min-height: 100vh;
 }
 
 /* ===== TOC Sidebar (Right) ===== */
 .toc-sidebar {
     position: sticky;
-    top: var(--spacing-xl);
-    height: fit-content;
-    max-height: calc(100vh - var(--spacing-xl) * 2);
+    top: 0;
+    right: 0;
+    width: var(--toc-width);
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .toc-container {
