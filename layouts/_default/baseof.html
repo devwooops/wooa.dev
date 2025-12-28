@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" data-theme="{{ .Site.Params.BookTheme }}">
+<html lang="{{ .Site.LanguageCode }}" data-theme="{{ .Site.Params.defaultTheme | default "auto" }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +9,12 @@
 
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
-    {{- if .Site.Params.BookTheme }}
     <script>
         (function() {
-            const theme = localStorage.getItem('theme') || '{{ .Site.Params.BookTheme }}';
+            const theme = localStorage.getItem('theme') || '{{ .Site.Params.defaultTheme | default "auto" }}';
             document.documentElement.dataset.theme = theme;
         })();
     </script>
-    {{- end }}
 
     {{- partial "head.html" . -}}
 </head>
