@@ -52,6 +52,9 @@ pygmentsCodeFences = true
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      autoHeadingIDType = "github"
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
