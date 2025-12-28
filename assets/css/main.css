@@ -1,15 +1,18 @@
 /* ===== CSS Variables ===== */
 :root {
-    --max-width: 80rem;
-    --sidebar-width: 16rem;
-    --toc-width: 16rem;
+    --sidebar-width: 280px;
+    --toc-width: 250px;
     --header-height: 60px;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
     --spacing-1: 1px;
     --spacing-4: 0.25rem;
     --spacing-8: 0.5rem;
     --spacing-16: 1rem;
-    --border-radius: 4px;
-    --transition: all 0.2s ease;
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
 }
 
 /* Light Theme */
@@ -56,6 +59,10 @@ html[data-theme="dark"] {
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
 body {
@@ -64,6 +71,11 @@ body {
     color: var(--text-primary);
     background-color: var(--bg-primary);
     transition: var(--transition);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* ===== Progress Bar ===== */
@@ -123,27 +135,30 @@ html[data-theme="dark"] .mobile-header {
 
 /* ===== Layout Container ===== */
 .container {
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr var(--toc-width);
-    max-width: 100%;
-    margin: 0;
-    gap: 0;
-    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    box-sizing: border-box;
 }
 
 /* ===== Sidebar (Left Menu) ===== */
 .sidebar {
-    position: fixed;
-    left: 0;
+    position: sticky;
     top: 0;
-    height: 100vh;
+    left: 0;
     width: var(--sidebar-width);
+    height: 100vh;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: var(--spacing-16);
     background: var(--bg-secondary);
-    border-radius: 0;
     border-right: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .sidebar-profile {
@@ -300,24 +315,27 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Main Content ===== */
 .main-content {
+    flex: 1;                      /* 사이드바 제외한 나머지 공간 차지 */
     min-width: 0;
-    padding: var(--spacing-16);
-    margin-left: var(--sidebar-width);
-    margin-right: var(--toc-width);
+    padding: calc(var(--spacing-16) * 2);
+    min-height: 100vh;
 }
 
 /* ===== TOC Sidebar (Right) ===== */
 .toc-sidebar {
-    position: fixed;
-    right: 0;
+    position: sticky;
     top: 0;
-    height: 100vh;
+    right: 0;
     width: var(--toc-width);
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
     overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg-secondary);
     border-left: 1px solid var(--border-color);
+    flex-shrink: 0;
 }
 
 .toc-container {
@@ -970,14 +988,6 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Responsive Design ===== */
 @media (max-width: 1200px) {
-    .container {
-        grid-template-columns: var(--sidebar-width) 1fr;
-    }
-
-    .main-content {
-        margin-right: 0;
-    }
-
     .toc-sidebar {
         display: none;
     }
@@ -1007,13 +1017,12 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     }
 
     .container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         padding-top: calc(var(--header-height) + var(--spacing-16));
     }
 
     .main-content {
-        margin-left: 0;
-        margin-right: 0;
+        padding: var(--spacing-16);
     }
 
     .sidebar {
