@@ -125,22 +125,25 @@ html[data-theme="dark"] .mobile-header {
 .container {
     display: grid;
     grid-template-columns: var(--sidebar-width) 1fr var(--toc-width);
-    max-width: var(--max-width);
-    margin: 0 auto;
-    gap: var(--spacing-16);
-    padding: var(--spacing-16);
+    max-width: 100%;
+    margin: 0;
+    gap: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
 /* ===== Sidebar (Left Menu) ===== */
 .sidebar {
-    position: sticky;
-    top: var(--spacing-16);
-    height: fit-content;
-    max-height: calc(100vh - var(--spacing-16) * 2);
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
     overflow-y: auto;
     padding: var(--spacing-16);
     background: var(--bg-secondary);
-    border-radius: var(--border-radius);
+    border-radius: 0;
+    border-right: 1px solid var(--border-color);
 }
 
 .sidebar-profile {
@@ -298,25 +301,32 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 /* ===== Main Content ===== */
 .main-content {
     min-width: 0;
+    padding: var(--spacing-16);
+    margin-left: var(--sidebar-width);
+    margin-right: var(--toc-width);
 }
 
 /* ===== TOC Sidebar (Right) ===== */
 .toc-sidebar {
-    position: sticky;
-    top: var(--spacing-16);
-    height: fit-content;
-    max-height: calc(100vh - var(--spacing-16) * 2);
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: var(--toc-width);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-8);
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
 }
 
 .toc-container {
     padding: var(--spacing-16);
     background: var(--bg-secondary);
-    border-radius: var(--border-radius);
+    border-radius: 0;
     overflow-y: auto;
     flex: 1;
+    height: 100%;
 }
 
 .toc-title {
@@ -964,6 +974,10 @@ html[data-theme="light"] .theme-toggle .moon-icon {
         grid-template-columns: var(--sidebar-width) 1fr;
     }
 
+    .main-content {
+        margin-right: 0;
+    }
+
     .toc-sidebar {
         display: none;
     }
@@ -995,6 +1009,11 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     .container {
         grid-template-columns: 1fr;
         padding-top: calc(var(--header-height) + var(--spacing-16));
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .sidebar {
