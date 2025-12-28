@@ -132,19 +132,21 @@ html[data-theme="dark"] .mobile-header {
 
 /* ===== Layout Container ===== */
 .container {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
     min-height: 100vh;
     margin: 0;
     padding: 0;
+    gap: 0;
 }
 
 /* ===== Sidebar (Left Menu) ===== */
 .sidebar {
-    position: fixed;
-    left: 0 !important;
+    position: sticky;
     top: 0;
-    bottom: 0;
+    left: 0;
     width: var(--sidebar-width);
     height: 100vh;
     overflow-y: auto;
@@ -152,8 +154,7 @@ html[data-theme="dark"] .mobile-header {
     padding: var(--spacing-16);
     background: var(--bg-secondary);
     border-right: 1px solid var(--border-color);
-    z-index: 100;
-    margin: 0;
+    flex-shrink: 0;
 }
 
 .sidebar-profile {
@@ -310,21 +311,18 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Main Content ===== */
 .main-content {
+    flex: 1;
     min-width: 0;
-    max-width: calc(100vw - var(--sidebar-width) - var(--toc-width));
-    width: calc(100% - var(--sidebar-width) - var(--toc-width));
-    margin-left: var(--sidebar-width);
-    margin-right: var(--toc-width);
+    max-width: 100%;
     padding: calc(var(--spacing-16) * 2);
     min-height: 100vh;
 }
 
 /* ===== TOC Sidebar (Right) ===== */
 .toc-sidebar {
-    position: fixed;
-    right: 0 !important;
+    position: sticky;
     top: 0;
-    bottom: 0;
+    right: 0;
     width: var(--toc-width);
     height: 100vh;
     display: flex;
@@ -334,8 +332,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     overflow-x: hidden;
     background: var(--bg-secondary);
     border-left: 1px solid var(--border-color);
-    z-index: 100;
-    margin: 0;
+    flex-shrink: 0;
 }
 
 .toc-container {
@@ -988,12 +985,6 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 /* ===== Responsive Design ===== */
 @media (max-width: 1200px) {
-    .main-content {
-        width: calc(100% - var(--sidebar-width));
-        max-width: calc(100vw - var(--sidebar-width));
-        margin-right: 0;
-    }
-
     .toc-sidebar {
         display: none;
     }
@@ -1023,14 +1014,11 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     }
 
     .container {
+        flex-direction: column;
         padding-top: calc(var(--header-height) + var(--spacing-16));
     }
 
     .main-content {
-        width: 100%;
-        max-width: 100vw;
-        margin-left: 0;
-        margin-right: 0;
         padding: var(--spacing-16);
     }
 

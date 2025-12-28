@@ -25,19 +25,19 @@
     <!-- Mobile header -->
     {{- partial "header.html" . -}}
 
-    <!-- Left sidebar - OUTSIDE container for absolute viewport positioning -->
-    {{- partial "sidebar.html" . -}}
-
-    <!-- Right TOC - OUTSIDE container for absolute viewport positioning -->
-    {{- if and (eq .Kind "page") (ne .Type "search") }}
-        {{- partial "toc.html" . -}}
-    {{- end }}
-
     <div class="container">
+        <!-- Left sidebar -->
+        {{- partial "sidebar.html" . -}}
+
         <!-- Main content -->
         <main class="main-content">
             {{- block "main" . }}{{- end }}
         </main>
+
+        <!-- Right TOC -->
+        {{- if and (eq .Kind "page") (ne .Type "search") }}
+            {{- partial "toc.html" . -}}
+        {{- end }}
     </div>
 
     {{- partial "scripts.html" . -}}
