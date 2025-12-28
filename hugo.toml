@@ -5,7 +5,7 @@ title = "WOOA.DEV"
 
 enableRobotsTXT = true
 enableEmoji = true
-pygmentsUseClasses = true
+pygmentsUseClasses = false
 pygmentsCodeFences = true
 
 [taxonomies]
@@ -58,9 +58,9 @@ pygmentsCodeFences = true
     anchorLineNos = false
     codeFences = true
     guessSyntax = false
-    lineNos = true
-    lineNumbersInTable = true
-    noClasses = false
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = true
     style = "monokai"
   [markup.tableOfContents]
     endLevel = 3
