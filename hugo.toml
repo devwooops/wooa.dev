@@ -15,7 +15,7 @@ pygmentsCodeFences = true
 [params]
   author = "Han Sangwoo"
   description = "인프라 · 리눅스 · 보안 실무 기록"
-  profileImage = "/images/profile.png"
+  # profileImage = "/images/profile.png"  # 프로필 이미지 경로 (선택사항)
 
   # Book theme settings
   BookTheme = "auto"

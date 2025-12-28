@@ -1,12 +1,12 @@
 <aside class="sidebar" id="sidebar">
     <!-- Profile Section -->
+    {{- if .Site.Params.profileImage }}
     <div class="sidebar-profile">
         <a href="{{ "/" | relURL }}" class="profile-link">
-            {{- if .Site.Params.profileImage }}
-            <img src="{{ .Site.Params.profileImage | relURL }}" alt="Profile" class="profile-image">
-            {{- end }}
+            <img src="{{ .Site.Params.profileImage | relURL }}" alt="{{ .Site.Title }}" class="profile-image">
         </a>
     </div>
+    {{- end }}
 
     <!-- Social Links -->
     <div class="sidebar-social">
