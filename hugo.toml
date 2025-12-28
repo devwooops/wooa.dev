@@ -1,20 +1,16 @@
 baseURL = "https://wooa.dev/"
 languageCode = "ko-kr"
 title = "WOOA.DEV"
-theme = "PaperMod"
+theme = "hugo-book"
 
 enableRobotsTXT = true
-buildDrafts = false
-buildFuture = false
-buildExpired = false
-
-[pagination]
-  pagerSize = 10
-
-[minify]
-  disableXML = true
-  minifyOutput = true
 
 [params]
-author = "Han Sangwoo"
-description = "인프라 · 리눅스 · 보안 실무 기록"
+  BookTheme = "auto"
+  BookToC = true
+  BookSection = "docs"
+  BookRepo = "https://github.com/devwooops/wooa.dev"
+  BookEditPath = "edit/main"
+
+[params.BookSearch]
+  enabled = true
