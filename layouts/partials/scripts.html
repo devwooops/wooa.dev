@@ -82,7 +82,9 @@
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            const tocLink = document.querySelector(`.toc a[href="#${id}"]`);
+            // Escape special characters in ID for querySelector
+            const escapedId = CSS.escape(id);
+            const tocLink = document.querySelector(`.toc a[href="#${escapedId}"]`);
 
             if (tocLink) {
                 if (entry.isIntersecting) {
@@ -222,7 +224,10 @@
             const href = this.getAttribute('href');
             if (href !== '#') {
                 e.preventDefault();
-                const target = document.querySelector(href);
+                // Extract ID from href (remove the '#')
+                const targetId = href.substring(1);
+                // Use getElementById to avoid issues with IDs starting with numbers
+                const target = document.getElementById(targetId);
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth' });
                     history.pushState(null, null, href);
