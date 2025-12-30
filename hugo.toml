@@ -1,7 +1,7 @@
 baseURL = "https://wooa.dev/"
 languageCode = "ko-kr"
 title = "WOOA.DEV"
-# theme = "hugo-book"  # Using custom layout instead
+theme = "hugo-book"  # Using custom layout to override where needed
 
 enableRobotsTXT = true
 enableEmoji = true
@@ -19,6 +19,13 @@ pygmentsCodeFences = true
 
   # Theme settings
   defaultTheme = "auto"  # auto, light, dark
+
+  # Book theme settings (for docs section)
+  BookTheme = "auto"
+  BookToC = true
+  BookSection = "docs"
+  BookRepo = "https://github.com/devwooops/wooa.dev"
+  BookEditPath = "edit/main"
 
   # Custom settings
   recentPostsCount = 5

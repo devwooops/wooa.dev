@@ -75,6 +75,30 @@
         </ul>
     </div>
 
+    <!-- Docs -->
+    <div class="sidebar-docs">
+        <h4 class="sidebar-section-title">문서</h4>
+        <ul class="docs-list">
+            {{- $docsSection := .Site.GetPage "/docs" }}
+            {{- range $docsSection.Sections.ByWeight }}
+            <li class="docs-section-item">
+                <a href="{{ .Permalink }}" class="docs-section-link">
+                    {{ .Title }}
+                </a>
+                {{- if .Pages }}
+                <ul class="docs-pages">
+                    {{- range .Pages.ByWeight }}
+                    <li class="docs-page-item">
+                        <a href="{{ .Permalink }}" class="docs-page-link">{{ .Title }}</a>
+                    </li>
+                    {{- end }}
+                </ul>
+                {{- end }}
+            </li>
+            {{- end }}
+        </ul>
+    </div>
+
     <!-- Recent Posts -->
     <div class="sidebar-recent">
         <h4 class="sidebar-section-title">최신글</h4>
