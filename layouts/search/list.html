@@ -22,24 +22,32 @@
     const searchBtn = document.getElementById('search-btn');
     const searchResults = document.getElementById('search-results');
     let searchIndex = null;
-
-    // Load search index
-    fetch('/index.json')
-        .then(response => response.json())
-        .then(data => {
-            searchIndex = data;
-        })
-        .catch(error => {
-            console.error('Failed to load search index:', error);
-        });
+    let pendingQuery = null;
 
     // Get query from URL
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
     if (query) {
         searchInput.value = query;
-        performSearch(query);
+        pendingQuery = query;
+        searchResults.innerHTML = '<p class="search-message">검색 인덱스를 로드하는 중...</p>';
     }
+
+    // Load search index
+    fetch('/index.json')
+        .then(response => response.json())
+        .then(data => {
+            searchIndex = data;
+            // If there was a pending query from URL, perform it now
+            if (pendingQuery) {
+                performSearch(pendingQuery);
+                pendingQuery = null;
+            }
+        })
+        .catch(error => {
+            console.error('Failed to load search index:', error);
+            searchResults.innerHTML = '<p class="search-message">검색 인덱스를 로드하는데 실패했습니다.</p>';
+        });
 
     // Search on button click
     searchBtn.addEventListener('click', function() {
